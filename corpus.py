@@ -1,24 +1,52 @@
+from os import getenv
 from glob import glob
 from json import load
 
 
 users = {}
 
+EXPORT_DIR = getenv('EXPORT_DIR', 'messages')
+
+
+def fmt_user(user):
+    profile = user['profile']
+    return {
+        'id': user['id'],
+        'is_admin': user.get('is_admin', False),
+        'is_owner': user.get('is_owner', False),
+        'is_bot': user['is_bot'],
+        'is_app_user': user['is_app_user'],
+        'display_name': profile['display_name_normalized'],
+        'first_name': profile.get('first_name'),
+        'last_name': profile.get('last_name'),
+        'real_name': profile['real_name_normalized'],
+        'image': profile['image_72'],
+        'email': profile.get('email'),
+        'phone': profile.get('phone'),
+    }
+
 
 def get_messages(limit=None):
-    for i, fn in enumerate(glob('messages/*/*.json')):
+    count = 0
+    for fn in glob(f'{EXPORT_DIR}/*/*.json'):
         for conv in load(open(fn)):
             if conv['type'] == 'message' and 'text' in conv and conv['text'] and 'client_msg_id' in conv:
-                id, user, text = conv['client_msg_id'], conv['user'], conv['text']
-                if user in users:
-                    user = users[user]
+                id, user_id, text = conv['client_msg_id'], conv['user'], conv['text']
+                if user_id in users:
+                    user = users[user_id]
                 else:
                     user = conv.get('user_profile', {})
-                    users[conv['user']] = user
+                    user['id'] = user_id
+                    users[user_id] = user
                 yield {'id': id, 'user': user, 'text': text}
-        if limit and i >= limit:
+                count += 1
+                if limit and count >= limit:
+                    return
+
+
+def get_users(limit=None):
+    count = 0
+    for user in load(open(f'{EXPORT_DIR}/users.json')):
+        yield fmt_user(user)
+        if limit and count >= limit:
             break
-
-
-def get_users():
-    return load(open('users.json'))
