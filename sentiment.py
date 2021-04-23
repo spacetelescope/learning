@@ -1,4 +1,5 @@
 import csv
+from multiprocessing import Pool
 
 import nltk
 from spacy import load
@@ -62,25 +63,32 @@ def analyze(txt):
     return scores['compound'], set(tags)
 
 
+def fmt_msg(msg):
+    txt = msg['text']
+    if '```' in txt:
+        txt = rmcode(txt)
+    if not txt:
+        return
+    score, tags = analyze(txt)
+    if not tags or not score:
+        return
+    user = msg['user']['id']
+    if user in usernames:
+        user = usernames[user]
+    txt = txt.replace('"', "'").replace('\n', '').replace('\r', '')[:1000]
+    return [msg['ts'], msg['channel'], user, score, '|'.join(tags), txt]
+
+
 def main():
+
+    pool = Pool(10)  # this takes some tuning
+    async_result = pool.map_async(fmt_msg, get_messages())
+    data = filter(None, async_result.get())
+    pool.close()
     with open('msg.sentiment.csv', 'w') as f:
         writer = csv.writer(f)
         writer.writerow(['Time', 'Channel', 'User', 'Score', 'Tags', 'Text'])
-        for msg in get_messages():
-            txt = msg['text']
-            if '```' in txt:
-                txt = rmcode(txt)
-            if not txt:
-                continue
-            score, tags = analyze(txt)
-            if not tags or not score:
-                continue
-            user = msg['user']['id']
-            if user in usernames:
-                user = usernames[user]
-            txt = txt.replace('"', "'").replace('\n', '').replace('\r', '')[:1000]
-            row = [msg['ts'], msg['channel'], user, score, '|'.join(tags), txt]
-            writer.writerow(row)
+        writer.writerows(data)
 
 
 if __name__ == '__main__':
