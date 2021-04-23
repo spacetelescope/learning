@@ -81,7 +81,7 @@ def fmt_msg(msg):
 
 def main():
 
-    pool = Pool(10)  # this takes some tuning
+    pool = Pool()  # this takes some tuning
     async_result = pool.map_async(fmt_msg, get_messages())
     data = filter(None, async_result.get())
     pool.close()
