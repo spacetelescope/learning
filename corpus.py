@@ -42,11 +42,12 @@ def rmcode(txt):
     return txt.strip()
 
 
-def get_messages(limit=None):
+def get_messages(limit=None, verbosity=1):
     count = 0
     for fn in sorted(glob(f'{EXPORT_DIR}/*/*.json')):
         channel = path.basename(path.dirname(fn))
-        print(f'Loading {fn}')
+        if verbosity:
+            print(f'Loading {fn}')
         for conv in load(open(fn)):
             if conv['type'] == 'message' and 'text' in conv and conv['text'] and 'client_msg_id' in conv:
                 id, user_id, text = conv['client_msg_id'], conv['user'], conv['text']
