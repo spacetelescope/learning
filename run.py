@@ -16,9 +16,7 @@ def nullcontext(enter_result=None):
 
 def main():
     # pprint(list(get_users()))
-    ti = time()
-    list(get_messages(verbosity=0))
-    print(time() - ti)
+    print(len(list(get_messages(verbosity=0))))
 
 
 @click.command()
