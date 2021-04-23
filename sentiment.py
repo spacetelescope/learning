@@ -4,7 +4,7 @@ import nltk
 from spacy import load
 from nltk.sentiment import SentimentIntensityAnalyzer
 
-from corpus import get_messages
+from corpus import get_messages, username_lookup, rmcode
 
 sia = SentimentIntensityAnalyzer()
 
@@ -14,6 +14,17 @@ nlp = load("en_core_web_lg")
 STOPWORDS = nltk.corpus.stopwords.words("english")
 
 IGNORE = ['date', 'time', 'percent', 'money', 'quantity', 'ordinal', 'cardinal', 'work_of_art']
+
+usernames = username_lookup()
+
+tag_lookup = {
+    'stars': 'STARS(ORG)',
+    'itsd': 'ITSD(ORG)',
+    'servicedesk': 'ServiceDesk(ORG)',
+    'stsci': 'STScI(ORG)',
+    'myst': 'MyST(PRODUCT)',
+    'sso': 'SSO(PRODUCT)',
+}
 
 
 def analyze(txt):
@@ -27,20 +38,17 @@ def analyze(txt):
         if lword.startswith('<http'):
             continue
         if word.startswith('<@W'):
-            word = lword[2:11].upper()
-            tags.append(f'{word}(PERSON)')
+            user = lword[2:11].upper()
+            if user in usernames:
+                user = usernames[user]
+            tags.append(f'{user}(PERSON)')
+            words.append(user)
+            continue
         if not word[0].isalnum():
             continue
-        if lword == 'stars':
-            tags.append('STARS(ORG)')
-        if lword == 'itsd':
-            tags.append('ITSD(ORG)')
-        if lword == 'servicedesk':
-            tags.append('ServiceDesk(ORG)')
-        if lword == 'stsci':
-            tags.append('STScI(ORG)')
-        if lword == 'myst':
-            tags.append('MyST(PRODUCT)')
+        if lword in tag_lookup:
+            tags.append(tag_lookup[lword])
+            continue
         words.append(word)
     if 'service desk' in txt:
         tags.append('ServiceDesk(ORG)')
@@ -57,13 +65,22 @@ def analyze(txt):
 def main():
     with open('msg.sentiment.csv', 'w') as f:
         writer = csv.writer(f)
-        writer.writerow(['Time', 'Channel', 'Score', 'Tags', 'Text'])
+        writer.writerow(['Time', 'Channel', 'User', 'Score', 'Tags', 'Text'])
         for msg in get_messages():
-            score, tags = analyze(msg['text'])
+            txt = msg['text']
+            if '```' in txt:
+                txt = rmcode(txt)
+            if not txt:
+                continue
+            score, tags = analyze(txt)
             if not tags or not score:
                 continue
-            txt = msg['text'].replace('"', "'").replace('\n', '').replace('\r', '')[:1000]
-            writer.writerow([msg['ts'], msg['channel'], score, '|'.join(tags), txt])
+            user = msg['user']['id']
+            if user in usernames:
+                user = usernames[user]
+            txt = txt.replace('"', "'").replace('\n', '').replace('\r', '')[:1000]
+            row = [msg['ts'], msg['channel'], user, score, '|'.join(tags), txt]
+            writer.writerow(row)
 
 
 if __name__ == '__main__':

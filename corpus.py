@@ -31,6 +31,17 @@ def fmt_user(user):
     }
 
 
+def rmcode(txt):
+    if '```' not in txt:
+        return txt
+    i = txt.find('```')
+    n = txt.find('```', i + 3)
+    txt = txt.replace(txt[i:n + 3], '')
+    if '```' in txt:
+        return rmcode(txt)
+    return txt.strip()
+
+
 def get_messages(limit=None):
     count = 0
     for fn in sorted(glob(f'{EXPORT_DIR}/*/*.json')):
@@ -58,3 +69,7 @@ def get_users(limit=None):
         yield fmt_user(user)
         if limit and count >= limit:
             break
+
+
+def username_lookup():
+    return {user['id']: user['real_name'] for user in get_users()}
