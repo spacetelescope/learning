@@ -1,61 +1,70 @@
-import json
-from glob import glob
-from pprint import pprint
-from statistics import mean
+import csv
 
 import nltk
-from nltk.tokenize import word_tokenize
-from nltk.tag import pos_tag
-from nltk.chunk import conlltags2tree, tree2conlltags
-from spacy import displacy
-from collections import Counter
-import en_core_web_sm
+from spacy import load
 from nltk.sentiment import SentimentIntensityAnalyzer
+
+from corpus import get_messages
+
 sia = SentimentIntensityAnalyzer()
 
-nlp = en_core_web_sm.load()
+nlp = load("en_core_web_lg")
 # pipenv run python -m nltk.downloader averaged_perceptron_tagger punkt
 # pipenv run python -m spacy download en_core_web_sm
-pattern = 'NP: {<DT>?<JJ>*<NN>}'
-cp = nltk.RegexpParser(pattern)
-stopwords = nltk.corpus.stopwords.words("english")
+STOPWORDS = nltk.corpus.stopwords.words("english")
+
+IGNORE = ['date', 'time', 'percent', 'money', 'quantity', 'ordinal', 'cardinal', 'work_of_art']
 
 
-def preprocess(sent):
-    sent = nltk.word_tokenize(sent)
-    sent = nltk.pos_tag(sent)
-    return cp.parse(sent)
-
-
-text = 'European authorities fined Google a record $5.1 billion on Wednesday for abusing its power in the mobile phone market and ordered the company to alter its practices.'
-
-# print(preprocess(text))
-# words = nltk.word_tokenize(text)
-# text = nltk.Text(words)
-# fd = text.vocab()
-# print(fd.tabulate(3))
-
-# print(sia.polarity_scores(text))
-
-
-#
-ignore = ['date', 'time', 'percent', 'money', 'quantity', 'ordinal', 'cardinal', 'work_of_art']
-entities = {}
-for fn in glob('export/*/*.json'):
-    for data in json.load(open(fn)):
-        if 'text' not in data:
+def analyze(txt):
+    tags = []
+    scores = sia.polarity_scores(txt)
+    words = []
+    for word in txt.split():
+        lword = word.lower()
+        if lword in STOPWORDS:
             continue
-        text = data['text']
-        words = [w for w in text.split() if w.lower() not in stopwords]
-        scores = sia.polarity_scores(text)
-        # if .3 > scores['compound'] > -.3:
-        #     continue
-        doc = nlp(' '.join(words))
-        for ent in doc.ents:
-            if ent.label_.lower() in ignore:
+        if lword.startswith('<http'):
+            continue
+        if word.startswith('<@W'):
+            word = lword[2:11].upper()
+            tags.append(f'{word}(PERSON)')
+        if not word[0].isalnum():
+            continue
+        if lword == 'stars':
+            tags.append('STARS(ORG)')
+        if lword == 'itsd':
+            tags.append('ITSD(ORG)')
+        if lword == 'servicedesk':
+            tags.append('ServiceDesk(ORG)')
+        if lword == 'stsci':
+            tags.append('STScI(ORG)')
+        if lword == 'myst':
+            tags.append('MyST(PRODUCT)')
+        words.append(word)
+    if 'service desk' in txt:
+        tags.append('ServiceDesk(ORG)')
+    doc = nlp(' '.join(words))
+    for ent in doc.ents:
+        if ent.label_.lower() in IGNORE:
+            continue
+        if not ent.text.isalnum():
+            continue
+        tags.append(f'{ent.text}({ent.label_})')
+    return scores['compound'], set(tags)
+
+
+def main():
+    with open('msg.sentiment.csv', 'w') as f:
+        writer = csv.writer(f)
+        writer.writerow(['Time', 'Channel', 'Score', 'Tags', 'Text'])
+        for msg in get_messages():
+            score, tags = analyze(msg['text'])
+            if not tags or not score:
                 continue
-            k = '%s(%s)' % (ent.text, ent.label_)
-            entities.setdefault(k, [])
-            entities[k].append(scores['compound'])
-with open('sentiment.json', 'w') as f:
-    json.dump({k: mean(v) for k, v in entities.items()}, f)
+            txt = msg['text'].replace('"', "'").replace('\n', '').replace('\r', '')[:1000]
+            writer.writerow([msg['ts'], msg['channel'], score, '|'.join(tags), txt])
+
+
+if __name__ == '__main__':
+    main()

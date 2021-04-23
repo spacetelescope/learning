@@ -1,11 +1,16 @@
-from os import getenv
+from os import getenv, path
 from glob import glob
 from json import load
-
+from datetime import datetime
 
 users = {}
 
 EXPORT_DIR = getenv('EXPORT_DIR', 'messages')
+
+
+def sec2datetime(seconds, utc=True):
+    func = datetime.utcfromtimestamp if utc else datetime.fromtimestamp
+    return func(seconds)
 
 
 def fmt_user(user):
@@ -28,17 +33,20 @@ def fmt_user(user):
 
 def get_messages(limit=None):
     count = 0
-    for fn in glob(f'{EXPORT_DIR}/*/*.json'):
+    for fn in sorted(glob(f'{EXPORT_DIR}/*/*.json')):
+        channel = path.basename(path.dirname(fn))
+        print(f'Loading {fn}')
         for conv in load(open(fn)):
             if conv['type'] == 'message' and 'text' in conv and conv['text'] and 'client_msg_id' in conv:
                 id, user_id, text = conv['client_msg_id'], conv['user'], conv['text']
+                ts = sec2datetime(float(conv['ts']))
                 if user_id in users:
                     user = users[user_id]
                 else:
                     user = conv.get('user_profile', {})
                     user['id'] = user_id
                     users[user_id] = user
-                yield {'id': id, 'user': user, 'text': text}
+                yield {'channel': channel, 'id': id, 'user': user, 'text': text, 'ts': ts}
                 count += 1
                 if limit and count >= limit:
                     return
