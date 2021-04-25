@@ -67,10 +67,9 @@ def get_file_messages(fn):
 
 
 def get_messages(verbosity=1):
-    pool = Pool(10)  # this takes some tuning
-    async_result = pool.map_async(get_file_messages, sorted(glob(f'{EXPORT_DIR}/*/*.json')))
-    data = async_result.get()
-    pool.close()
+    with Pool() as pool:
+        async_result = pool.map_async(get_file_messages, sorted(glob(f'{EXPORT_DIR}/*/*.json')))
+        data = async_result.get()
     return list(chain(*data))
 
 

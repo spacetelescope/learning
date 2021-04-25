@@ -80,11 +80,9 @@ def fmt_msg(msg):
 
 
 def main():
-
-    pool = Pool()  # this takes some tuning
-    async_result = pool.map_async(fmt_msg, get_messages())
-    data = filter(None, async_result.get())
-    pool.close()
+    with Pool() as pool:
+        async_result = pool.map_async(fmt_msg, get_messages())
+        data = filter(None, async_result.get())
     with open('msg.sentiment.csv', 'w') as f:
         writer = csv.writer(f)
         writer.writerow(['Time', 'Channel', 'User', 'Score', 'Tags', 'Text'])
