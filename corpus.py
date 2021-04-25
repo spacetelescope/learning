@@ -67,10 +67,10 @@ def get_file_messages(fn):
 
 
 def get_messages(verbosity=1):
-    msgs = []
-    for fn in sorted(glob(f'{EXPORT_DIR}/*/*.json')):
-        msgs.extend(get_file_messages(fn))
-    return msgs
+    with Pool() as pool:
+        async_result = pool.map_async(get_file_messages, sorted(glob(f'{EXPORT_DIR}/*/*.json')))
+        data = async_result.get()
+    return list(chain(*data))
 
 
 def get_users(limit=None):
