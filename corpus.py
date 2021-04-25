@@ -39,6 +39,8 @@ def rmcode(txt):
         return txt
     i = txt.find('```')
     n = txt.find('```', i + 3)
+    if n == -1:
+        return txt.replace('```', '')
     txt = txt.replace(txt[i:n + 3], '')
     if '```' in txt:
         return rmcode(txt)
