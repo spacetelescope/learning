@@ -38,6 +38,12 @@ def analyze(txt):
             continue
         if lword.startswith('<http'):
             continue
+        try:
+            # ignore hex text
+            int(lword, 16)
+            continue
+        except ValueError:
+            pass
         if word.startswith('<@W'):
             user = lword[2:11].upper()
             if user in usernames:
@@ -58,6 +64,8 @@ def analyze(txt):
         if ent.label_.lower() in IGNORE:
             continue
         if not ent.text.isalnum():
+            continue
+        if ent.text.isnumeric():
             continue
         tags.append(f'{ent.text}({ent.label_})')
     return scores['compound'], set(tags)
