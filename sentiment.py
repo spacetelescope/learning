@@ -1,5 +1,5 @@
 import csv
-from multiprocessing import Pool
+# from multiprocessing import Pool
 
 import nltk
 from spacy import load
@@ -28,11 +28,9 @@ tag_lookup = {
 }
 
 
-def analyze(txt):
-    tags = []
-    scores = sia.polarity_scores(txt)
-    words = []
-    for word in txt.split():
+def analyze_words(words):
+    tags, newwords = [], []
+    for word in words:
         lword = word.lower()
         if lword in STOPWORDS:
             continue
@@ -49,17 +47,15 @@ def analyze(txt):
             if user in usernames:
                 user = usernames[user]
             tags.append(f'{user}(PERSON)')
-            words.append(user)
+            newwords.append(user)
             continue
         if not word[0].isalnum():
             continue
         if lword in tag_lookup:
             tags.append(tag_lookup[lword])
             continue
-        words.append(word)
-    if 'service desk' in txt:
-        tags.append('ServiceDesk(ORG)')
-    doc = nlp(' '.join(words))
+        newwords.append(word)
+    doc = nlp(' '.join(newwords))
     for ent in doc.ents:
         if ent.label_.lower() in IGNORE:
             continue
@@ -68,7 +64,18 @@ def analyze(txt):
         if ent.text.isnumeric():
             continue
         tags.append(f'{ent.text}({ent.label_})')
-    return scores['compound'], set(tags)
+    return tags, newwords
+
+
+def analyze(txt):
+    sent_text = nltk.sent_tokenize(txt)
+    tags = []
+    for sentence in sent_text:
+        scores = sia.polarity_scores(sentence)
+        tags, words = analyze_words(sentence.split())
+        if 'service desk' in sentence:
+            tags.append('ServiceDesk(ORG)')
+        yield scores['compound'], set(tags), words
 
 
 def fmt_msg(msg):
@@ -76,21 +83,26 @@ def fmt_msg(msg):
     if '```' in txt:
         txt = rmcode(txt)
     if not txt:
-        return
-    score, tags = analyze(txt)
-    if not tags or not score:
-        return
-    user = msg['user']['id']
-    if user in usernames:
-        user = usernames[user]
-    txt = txt.replace('"', "'").replace('\n', '').replace('\r', '')[:1000]
-    return [msg['ts'], msg['channel'], user, score, '|'.join(tags), txt]
+        return []
+    rows = []
+    for score, tags, words in analyze(txt):
+        if not tags or not score:
+            return []
+        user = msg['user']['id']
+        if user in usernames:
+            user = usernames[user]
+        rows.append([msg['ts'], msg['channel'], user, score, '|'.join(tags), ' '.join(words)])
+    return rows
 
 
 def main():
-    with Pool() as pool:
-        async_result = pool.map_async(fmt_msg, get_messages())
-        data = filter(None, async_result.get())
+    # with Pool() as pool:
+    #     async_result = pool.map_async(fmt_msg, get_messages()[:100])
+    #     data = filter(None, async_result.get())
+    data = []
+    for msg in get_messages(100):
+        data.extend(fmt_msg(msg))
+
     with open('msg.sentiment.csv', 'w') as f:
         writer = csv.writer(f)
         writer.writerow(['Time', 'Channel', 'User', 'Score', 'Tags', 'Text'])

@@ -2,8 +2,8 @@ from os import getenv, path
 from glob import glob
 from json import load
 from datetime import datetime
-from multiprocessing import Pool
-from itertools import chain
+# from multiprocessing import Pool
+# from itertools import chain
 
 
 users = {}
@@ -66,11 +66,17 @@ def get_file_messages(fn):
     return msgs
 
 
-def get_messages(verbosity=1):
-    with Pool() as pool:
-        async_result = pool.map_async(get_file_messages, sorted(glob(f'{EXPORT_DIR}/*/*.json')))
-        data = async_result.get()
-    return list(chain(*data))
+def get_messages(limit=None):
+    # with Pool() as pool:
+    #     async_result = pool.map_async(get_file_messages, sorted(glob(f'{EXPORT_DIR}/*/*.json')))
+    #     data = async_result.get()
+    # return list(chain(*data))
+    msgs = []
+    for fn in sorted(glob(f'{EXPORT_DIR}/*/*.json')):
+        msgs.extend(get_file_messages(fn))
+        if limit and len(msgs) >= limit:
+            return msgs[:limit]
+    return msgs
 
 
 def get_users(limit=None):
