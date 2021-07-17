@@ -2,13 +2,18 @@ from os import getenv, path
 from glob import glob
 from json import load
 from datetime import datetime
-# from multiprocessing import Pool
-# from itertools import chain
-
+from multiprocessing import Pool
+from itertools import chain
+from pprint import pprint
 
 users = {}
 
+POOL = False
 EXPORT_DIR = getenv('EXPORT_DIR', 'messages')
+
+
+def globber(*paths):
+    return sorted(glob(path.join(EXPORT_DIR, *paths)))
 
 
 def sec2datetime(seconds, utc=True):
@@ -60,19 +65,20 @@ def get_file_messages(fn):
                 user = conv.get('user_profile', {})
                 user['id'] = user_id
                 users[user_id] = user
-            msg = {'channel': channel, 'id': id, 'user': user, 'text': text, 'ts': ts}
+            msg = {'channel': channel, 'id': id, 'user': user, 'text': text, 'ts': ts, 'reactions': conv.get('reactions', [])}
             # yield msg
             msgs.append(msg)
     return msgs
 
 
 def get_messages(limit=None):
-    # with Pool() as pool:
-    #     async_result = pool.map_async(get_file_messages, sorted(glob(f'{EXPORT_DIR}/*/*.json')))
-    #     data = async_result.get()
-    # return list(chain(*data))
+    if POOL:
+        with Pool() as pool:
+            async_result = pool.map_async(get_file_messages, globber('*', '*.json'))
+            data = async_result.get()
+        return list(chain(*data))
     msgs = []
-    for fn in sorted(glob(f'{EXPORT_DIR}/*/*.json')):
+    for fn in globber('*', '*.json'):
         msgs.extend(get_file_messages(fn))
         if limit and len(msgs) >= limit:
             return msgs[:limit]
@@ -80,11 +86,26 @@ def get_messages(limit=None):
 
 
 def get_users(limit=None):
-    count = 0
+    count = 1
     for user in load(open(f'{EXPORT_DIR}/users.json')):
         yield fmt_user(user)
         if limit and count >= limit:
             break
+        count += 1
+
+
+def fmt_channel(channel, users):
+    if users:
+        pass
+
+
+def get_channels(limit=None, users=False):
+    count = 1
+    for channel in load(open(f'{EXPORT_DIR}/channels.json')):
+        yield fmt_channel(channel)
+        if limit and count >= limit:
+            break
+        count += 1
 
 
 def username_lookup():
@@ -92,4 +113,7 @@ def username_lookup():
 
 
 def main():
-    print(len(get_messages()))
+    users = list(get_users(10))
+    channels = list(get_channels(10))
+    import ipdb
+    ipdb.set_trace()
