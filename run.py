@@ -6,7 +6,7 @@ from time import time
 from ipdb import launch_ipdb_on_exception
 import click
 
-from corpus import get_messages
+from stsci.learning.corpus import get_messages
 
 
 @contextmanager

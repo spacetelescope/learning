@@ -1,10 +1,11 @@
-from entity import classify
 from json import dump
 from pprint import pprint
-from corp import get_messages
-
 
 from ipdb import launch_ipdb_on_exception
+
+from stsci.learning.entity import classify
+from stsci.learning.corpus import get_messages
+
 
 speakers = {'Positive': {}, 'Negative': {}}
 entities = {'Positive': {}, 'Negative': {}}

@@ -5,7 +5,8 @@ import nltk
 from spacy import load
 from nltk.sentiment import SentimentIntensityAnalyzer
 
-from corpus import get_messages, username_lookup, rmcode
+from stsci.learning.corpus import get_messages, username_lookup, rmcode
+from stsci.learning.settings import TAG_LOOKUP
 
 sia = SentimentIntensityAnalyzer()
 
@@ -17,15 +18,6 @@ STOPWORDS = nltk.corpus.stopwords.words("english")
 IGNORE = ['date', 'time', 'percent', 'money', 'quantity', 'ordinal', 'cardinal', 'work_of_art']
 
 usernames = username_lookup()
-
-tag_lookup = {
-    'stars': 'STARS(ORG)',
-    'itsd': 'ITSD(ORG)',
-    'servicedesk': 'ServiceDesk(ORG)',
-    'stsci': 'STScI(ORG)',
-    'myst': 'MyST(PRODUCT)',
-    'sso': 'SSO(PRODUCT)',
-}
 
 
 def analyze_words(words):
@@ -51,8 +43,8 @@ def analyze_words(words):
             continue
         if not word[0].isalnum():
             continue
-        if lword in tag_lookup:
-            tags.append(tag_lookup[lword])
+        if lword in TAG_LOOKUP:
+            tags.append(TAG_LOOKUP[lword])
             continue
         newwords.append(word)
     doc = nlp(' '.join(newwords))

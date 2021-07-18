@@ -10,6 +10,7 @@ ipdb = "*"
 spacy = "*"
 ipython = "*"
 click = "*"
+nose = "*"
 
 [dev-packages]
 

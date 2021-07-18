@@ -2,7 +2,10 @@ import csv
 import json
 
 from convokit import Classifier, Corpus, TextParser, PolitenessStrategies, download
-from corpus import corp, get_users
+
+from stsci.learning.corpus import corp, get_users
+
+
 wiki_corpus = Corpus(download("wikipedia-politeness-corpus"))
 parser = TextParser(verbosity=1000)
 wiki_corpus = parser.transform(wiki_corpus)

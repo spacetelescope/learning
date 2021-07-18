@@ -1,5 +1,6 @@
-from corpus import get_messages
 from pprint import pprint
+
+from stsci.learning.corpus import get_messages
 
 
 EMOJI = ':eyes:'
