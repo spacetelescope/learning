@@ -4,6 +4,7 @@ import ipdb
 from collections import Counter
 from spacy import displacy
 import spacy
+from spacy.cli.download import download as spacy_download
 import re
 import nltk
 from nltk.tokenize import word_tokenize
@@ -14,9 +15,17 @@ from nltk import NaiveBayesClassifier
 from nltk.tokenize import word_tokenize
 from nltk.stem.wordnet import WordNetLemmatizer
 import string
-# nltk.download('punkt')
-# nltk.download('twitter_samples')
-# nltk.download('wordnet')
+
+ex = 'European authorities fined Google a record $5.1 billion on Wednesday for abusing its power '
+'in the mobile phone market and ordered the company to alter its practices. and Fred was to blame for it all. Fred is awful'
+pattern = 'NP: {<DT>?<JJ>*<NN>}'
+
+
+def init():
+    nltk.download('punkt')
+    nltk.download('twitter_samples')
+    nltk.download('wordnet')
+    spacy_download('en_core_web_sm')
 
 
 def remove_noise(tweet_tokens, stop_words=()):
@@ -43,27 +52,30 @@ def remove_noise(tweet_tokens, stop_words=()):
     return cleaned_tokens
 
 
-pattern = 'NP: {<DT>?<JJ>*<NN>}'
-ex = 'European authorities fined Google a record $5.1 billion on Wednesday for abusing its power '
-'in the mobile phone market and ordered the company to alter its practices. and Fred was to blame for it all. Fred is awful'
+def main():
 
-positive_tweets = twitter_samples.tokenized('positive_tweets.json')
-negative_tweets = twitter_samples.tokenized('negative_tweets.json')
+    positive_tweets = twitter_samples.tokenized('positive_tweets.json')
+    negative_tweets = twitter_samples.tokenized('negative_tweets.json')
 
+    def get_tweets_for_model(cleaned_tokens_list):
+        for tweet_tokens in cleaned_tokens_list:
+            yield dict([token, True] for token in tweet_tokens)
 
-def get_tweets_for_model(cleaned_tokens_list):
-    for tweet_tokens in cleaned_tokens_list:
-        yield dict([token, True] for token in tweet_tokens)
+    positive_tokens_for_model = get_tweets_for_model(positive_tweets)
+    negative_tokens_for_model = get_tweets_for_model(negative_tweets)
+    positive_dataset = [(tweet_dict, "Positive")
+                        for tweet_dict in positive_tokens_for_model]
 
+    negative_dataset = [(tweet_dict, "Negative")
+                        for tweet_dict in negative_tokens_for_model]
+    dataset = positive_dataset + negative_dataset
 
-positive_tokens_for_model = get_tweets_for_model(positive_tweets)
-negative_tokens_for_model = get_tweets_for_model(negative_tweets)
-positive_dataset = [(tweet_dict, "Positive")
-                    for tweet_dict in positive_tokens_for_model]
+    nlp = spacy.load("en_core_web_sm")
+    classifier = NaiveBayesClassifier.train(dataset)
 
-negative_dataset = [(tweet_dict, "Negative")
-                    for tweet_dict in negative_tokens_for_model]
-dataset = positive_dataset + negative_dataset
+    sentiments = {T: (T.ent_iob_, T.ent_type_) for T in nlp(ex) if T.ent_type_}
+    verdict = classifier.classify({token: True for token in remove_noise(word_tokenize(ex))})
+    return verdict, sentiments
 
 
 def preprocess(sent):
@@ -71,31 +83,21 @@ def preprocess(sent):
     sent = nltk.pos_tag(sent)
     return sent
 
-
-nlp = spacy.load("en_core_web_sm")
-classifier = NaiveBayesClassifier.train(dataset)
-
-
-def classify(txt):
     # doc = nlp(ex)
     # filtered_tokens = [token for token in doc if not token.is_stop]
 
-    sentiments = {T: (T.ent_iob_, T.ent_type_) for T in nlp(txt) if T.ent_type_}
-    verdict = classifier.classify({token: True for token in remove_noise(word_tokenize(txt))})
-    return verdict, sentiments
 
+def xtra():
+    sent = preprocess(ex)
+    cp = nltk.RegexpParser(pattern)
+    cs = cp.parse(sent)
+    print(cs)
 
-# sent = preprocess(ex)
-# cp = nltk.RegexpParser(pattern)
-# cs = cp.parse(sent)
-# print(cs)
-#
-#
-# nlp = spacy.load("en_core_web_sm")
-# doc = nlp(ex)
-# pprint([(X.text, X.label_) for X in doc.ents])
-# pprint([(X, X.ent_iob_, X.ent_type_) for X in doc])
-# items = [x.text for x in doc.ents]
-# print(dict([(str(x), x.label_) for x in doc.ents]))
-#
-# Counter(items).most_common(3)
+    nlp = spacy.load("en_core_web_sm")
+    doc = nlp(ex)
+    pprint([(X.text, X.label_) for X in doc.ents])
+    pprint([(X, X.ent_iob_, X.ent_type_) for X in doc])
+    items = [x.text for x in doc.ents]
+    print(dict([(str(x), x.label_) for x in doc.ents]))
+
+    return Counter(items).most_common(3)

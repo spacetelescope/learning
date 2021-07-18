@@ -9,7 +9,7 @@ from stsci.learning.log import logger
 from stsci.learning.settings import POOL, EXPORT_DIR
 
 
-users = {}
+_USERS = {}
 
 
 def globber(*paths):
@@ -61,12 +61,12 @@ def get_file_messages(fn, verbosity=0):
         if conv['type'] == 'message' and 'text' in conv and conv['text'] and 'client_msg_id' in conv:
             id, user_id, text = conv['client_msg_id'], conv['user'], conv['text']
             ts = sec2datetime(float(conv['ts']))
-            if user_id in users:
-                user = users[user_id]
+            if user_id in _USERS:
+                user = _USERS[user_id]
             else:
                 user = conv.get('user_profile', {})
                 user['id'] = user_id
-                users[user_id] = user
+                _USERS[user_id] = user
             msg = {'channel': channel, 'id': id, 'user': user, 'text': text, 'ts': ts, 'reactions': conv.get('reactions', [])}
             # yield msg
             if verbosity > 1:
