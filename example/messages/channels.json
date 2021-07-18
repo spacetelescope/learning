@@ -1,0 +1,34 @@
+[
+{
+    "id": "C8WSCQ000",
+    "name": "example",
+    "created": 1516736123,
+    "creator": "WRKPSC000",
+    "is_archived": false,
+    "is_general": false,
+    "members": [
+        "WRZE84000",
+        "WRZ40C000",
+        "WRJEJ7000",
+        "WRZ40L000",
+        "WRZE93000",
+        "WRKPSC000",
+        "WRX8F8000",
+        "WRZ400000",
+        "WRM0NV000",
+        "WRX8FH000",
+        "WRWQ34000",
+        "U01DHLK2000"
+    ],
+    "topic": {
+        "value": "",
+        "creator": "",
+        "last_set": 0
+    },
+    "purpose": {
+        "value": "Non-work related slack channel about nothing important",
+        "creator": "WRKPSC000",
+        "last_set": 1516736299
+    }
+}
+]

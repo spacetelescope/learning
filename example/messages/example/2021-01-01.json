@@ -1,0 +1,798 @@
+[
+  {
+    "client_msg_id": "fe3ea42f-21fd-48be-b0b4-97e3a9ab59e3",
+    "type": "message",
+    "text": "Hi ladies - so we have 'Make a Wish' folks visiting on 11/5 and they need the auditorium from 5-6. Go figure.  I am happy to do it another day that week or we can start our weekly crap on 11/12 - thoughts?",
+    "user": "WRX8F8000",
+    "ts": "1571233201.000400",
+    "team": "T0000001",
+    "user_team": "T0000001",
+    "source_team": "T0000001",
+    "user_profile": {
+      "real_name": "Pat Developer",
+      "display_name": "dev8",
+      "avatar_hash": "8fe400f6",
+      "first_name": "Pat",
+      "image_72": "https://avatars.slack-edge.com/2020-10-26/404_72.jpg",
+      "team": "T0000001"
+    },
+    "thread_ts": "1570053294.001100",
+    "parent_user_id": "WRX8F8W6R"
+  },
+  {
+    "type": "message",
+    "subtype": "channel_join",
+    "ts": "1615918007.000200",
+    "user": "WRZE93000",
+    "text": "<@WRZE93LDU> has joined the channel",
+    "client_msg_id": "b14bb30c-1f57-4a80-8140-70e3e3441892",
+    "team": "T0000001",
+    "source_team": "T0000001",
+    "user_team": "T0000001"
+  },
+  {
+    "client_msg_id": "d9c0d318-a40d-4f5b-aa7e-98407dfbed2c",
+    "type": "message",
+    "text": "Crap with Alex starts today!?  Ack, I forgot to bring crap pants...",
+    "user": "WRZ40L000",
+    "ts": "1572972872.002300",
+    "team": "T0000001",
+    "user_team": "T0000001",
+    "source_team": "T0000001",
+    "user_profile": {
+      "real_name": "Pat Developer",
+      "display_name": "dev7",
+      "avatar_hash": "8fe400f6",
+      "first_name": "Pat",
+      "image_72": "https://avatars.slack-edge.com/2020-10-26/404_72.jpg",
+      "team": "T0000001"
+    },
+    "blocks": [
+      {
+        "type": "rich_text",
+        "block_id": "SKUWF",
+        "elements": [
+          {
+            "type": "rich_text_section",
+            "elements": [
+              {
+                "type": "text",
+                "text": "crap with Alex starts today!?  Ack, I forgot to bring crap pants..."
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "client_msg_id": "c7874f87-ff68-44c9-b6a1-3bdf811a24f2",
+    "type": "message",
+    "text": "I think we are postponed for today, as the auditorium was snagged by someone else this afternoon.  So your crap pants can wait for another day!",
+    "user": "WRX8FH000",
+    "ts": "1572973357.003200",
+    "team": "T0000001",
+    "user_team": "T0000001",
+    "source_team": "T0000001",
+    "user_profile": {
+      "real_name": "Pat Developer",
+      "display_name": "dev9",
+      "avatar_hash": "8fe400f6",
+      "first_name": "Pat",
+      "image_72": "https://avatars.slack-edge.com/2020-10-26/404_72.jpg",
+      "team": "T0000001"
+    },
+    "blocks": [
+      {
+        "type": "rich_text",
+        "block_id": "EtcKi",
+        "elements": [
+          {
+            "type": "rich_text_section",
+            "elements": [
+              {
+                "type": "text",
+                "text": "I think we are postponed for today, as the auditorium was snagged by someone else this afternoon.  So your crap pants can wait for another day!"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "reactions": [
+      {
+        "name": "+1",
+        "users": [
+          "WRZ40LDRD"
+        ],
+        "count": 1
+      }
+    ]
+  },
+  {
+    "client_msg_id": "b806160c-ac9a-48bd-bbb1-8378fa572e16",
+    "type": "message",
+    "text": "I could do Mon or Thur next week, but stay with Wednesdays after that....  Need crap!!",
+    "user": "WRX8FH000",
+    "ts": "1572277352.000600",
+    "team": "T0000001",
+    "user_team": "T0000001",
+    "source_team": "T0000001",
+    "user_profile": {
+      "real_name": "Pat Developer",
+      "display_name": "dev9",
+      "avatar_hash": "8fe400f6",
+      "first_name": "Pat",
+      "image_72": "https://avatars.slack-edge.com/2020-10-26/404_72.jpg",
+      "team": "T0000001"
+    },
+    "thread_ts": "1570053294.001100",
+    "parent_user_id": "WRX8F8W6R"
+  },
+  {
+    "client_msg_id": "3fc2c064-9bbc-4f2b-b675-975760fb436d",
+    "type": "message",
+    "text": "you mean stick with tuesdays right?",
+    "user": "WRX8F8000",
+    "ts": "1572280672.000800",
+    "team": "T0000001",
+    "user_team": "T0000001",
+    "source_team": "T0000001",
+    "user_profile": {
+      "real_name": "Pat Developer",
+      "display_name": "dev8",
+      "avatar_hash": "8fe400f6",
+      "first_name": "Pat",
+      "image_72": "https://avatars.slack-edge.com/2020-10-26/404_72.jpg",
+      "team": "T0000001"
+    },
+    "thread_ts": "1570053294.001100",
+    "parent_user_id": "WRX8F8W6R"
+  },
+  {
+    "client_msg_id": "122579c0-51cd-41bd-bbc9-78c6dcd1461b",
+    "type": "message",
+    "text": "Oops... Yup!",
+    "user": "WRX8FH000",
+    "ts": "1572280764.001000",
+    "team": "T0000001",
+    "user_team": "T0000001",
+    "source_team": "T0000001",
+    "user_profile": {
+      "real_name": "Pat Developer",
+      "display_name": "dev9",
+      "avatar_hash": "8fe400f6",
+      "first_name": "Pat",
+      "image_72": "https://avatars.slack-edge.com/2020-10-26/404_72.jpg",
+      "team": "T0000001"
+    },
+    "thread_ts": "1570053294.001100",
+    "parent_user_id": "WRX8F8W6R"
+  },
+  {
+    "client_msg_id": "c5864c32-ae82-49d6-8cbe-1cddba155bc5",
+    "type": "message",
+    "text": "Tuesday would be good.",
+    "user": "WRZ40L000",
+    "ts": "1570550530.001800",
+    "team": "T0000001",
+    "user_team": "T0000001",
+    "source_team": "T0000001",
+    "user_profile": {
+      "real_name": "Pat Developer",
+      "display_name": "dev7",
+      "avatar_hash": "8fe400f6",
+      "first_name": "Pat",
+      "image_72": "https://avatars.slack-edge.com/2020-10-26/404_72.jpg",
+      "team": "T0000001"
+    },
+    "thread_ts": "1570053294.001100",
+    "parent_user_id": "WRX8F8W6R"
+  },
+  {
+    "client_msg_id": "9e5b0ccb-2b44-42c1-a9d7-3c42900a6a3e",
+    "type": "message",
+    "text": "Ok let's try Tuesdays. I've reserved the auditorium starting Nov 5th, 5-6pm. Bring your mats. We could potentially do one next week but then I'm gone the next 2 Tuesdays.",
+    "user": "WRX8F8000",
+    "ts": "1570553265.002000",
+    "team": "T0000001",
+    "user_team": "T0000001",
+    "source_team": "T0000001",
+    "user_profile": {
+      "real_name": "Pat Developer",
+      "display_name": "dev8",
+      "avatar_hash": "8fe400f6",
+      "first_name": "Pat",
+      "image_72": "https://avatars.slack-edge.com/2020-10-26/404_72.jpg",
+      "team": "T0000001"
+    },
+    "thread_ts": "1570053294.001100",
+    "parent_user_id": "WRX8F8W6R",
+    "reactions": [
+      {
+        "name": "+1",
+        "users": [
+          "WRZ40LDRD"
+        ],
+        "count": 1
+      }
+    ]
+  },
+  {
+    "client_msg_id": "5e49c3f7-cd57-4b99-aac4-f76adeeefc08",
+    "type": "message",
+    "text": "Also, if people give me an idea what level you are/want, that would be helpful in planning.",
+    "user": "WRX8F8000",
+    "ts": "1570553278.002200",
+    "team": "T0000001",
+    "user_team": "T0000001",
+    "source_team": "T0000001",
+    "user_profile": {
+      "real_name": "Pat Developer",
+      "display_name": "dev8",
+      "avatar_hash": "8fe400f6",
+      "first_name": "Pat",
+      "image_72": "https://avatars.slack-edge.com/2020-10-26/404_72.jpg",
+      "team": "T0000001"
+    },
+    "thread_ts": "1570053294.001100",
+    "parent_user_id": "WRX8F8W6R"
+  },
+  {
+    "client_msg_id": "0e235ab3-ebcf-4161-aa2c-82040defd74b",
+    "type": "message",
+    "text": "\"crap with Alex\" is now on my calendar!  :slightly_smiling_face:  I'm a bit of a beginner, myself.  But after a long Tuesday a nice relaxing crap session will be welcome, I think...!",
+    "user": "WRZ40L000",
+    "ts": "1570628180.000200",
+    "team": "T0000001",
+    "user_team": "T0000001",
+    "source_team": "T0000001",
+    "user_profile": {
+      "real_name": "Pat Developer",
+      "display_name": "dev7",
+      "avatar_hash": "8fe400f6",
+      "first_name": "Pat",
+      "image_72": "https://avatars.slack-edge.com/2020-10-26/404_72.jpg",
+      "team": "T0000001"
+    },
+    "thread_ts": "1570053294.001100",
+    "parent_user_id": "WRX8F8W6R"
+  },
+  {
+    "client_msg_id": "164f86e9-697c-4272-bd8b-526e86fea077",
+    "type": "message",
+    "text": "i can lead some crap today if people want - up to you all",
+    "user": "WRX8F8000",
+    "ts": "1573582325.003700",
+    "team": "T0000001",
+    "user_team": "T0000001",
+    "source_team": "T0000001",
+    "user_profile": {
+      "real_name": "Pat Developer",
+      "display_name": "dev8",
+      "avatar_hash": "8fe400f6",
+      "first_name": "Pat",
+      "image_72": "https://avatars.slack-edge.com/2020-10-26/404_72.jpg",
+      "team": "T0000001"
+    },
+    "blocks": [
+      {
+        "type": "rich_text",
+        "block_id": "cLfoU",
+        "elements": [
+          {
+            "type": "rich_text_section",
+            "elements": [
+              {
+                "type": "text",
+                "text": "i can lead some crap today if people want - up to you all"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "client_msg_id": "921a5368-778b-4e9e-aaa6-208990a088f9",
+    "type": "message",
+    "text": "I think I'll actually pass on today after all.",
+    "user": "WRX8FH000",
+    "ts": "1573587386.004200",
+    "team": "T0000001",
+    "user_team": "T0000001",
+    "source_team": "T0000001",
+    "user_profile": {
+      "real_name": "Pat Developer",
+      "display_name": "dev9",
+      "avatar_hash": "8fe400f6",
+      "first_name": "Pat",
+      "image_72": "https://avatars.slack-edge.com/2020-10-26/404_72.jpg",
+      "team": "T0000001"
+    },
+    "blocks": [
+      {
+        "type": "rich_text",
+        "block_id": "54P4z",
+        "elements": [
+          {
+            "type": "rich_text_section",
+            "elements": [
+              {
+                "type": "text",
+                "text": "I think I'll actually pass on today after all."
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "client_msg_id": "00288073-55ae-44e2-9fc9-6b53d97f3ac6",
+    "type": "message",
+    "text": "you sure?",
+    "user": "WRX8F8000",
+    "ts": "1573587433.004400",
+    "team": "T0000001",
+    "user_team": "T0000001",
+    "source_team": "T0000001",
+    "user_profile": {
+      "real_name": "Pat Developer",
+      "display_name": "dev8",
+      "avatar_hash": "8fe400f6",
+      "first_name": "Pat",
+      "image_72": "https://avatars.slack-edge.com/2020-10-26/404_72.jpg",
+      "team": "T0000001"
+    },
+    "blocks": [
+      {
+        "type": "rich_text",
+        "block_id": "=ghu",
+        "elements": [
+          {
+            "type": "rich_text_section",
+            "elements": [
+              {
+                "type": "text",
+                "text": "you sure?"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "client_msg_id": "5a7bb201-493e-405f-9a67-94d51c1b6765",
+    "type": "message",
+    "text": "ohhh... keep twisting my arm (just not my hand!)...  maybe??",
+    "user": "WRX8FH000",
+    "ts": "1573587468.004900",
+    "team": "T0000001",
+    "user_team": "T0000001",
+    "source_team": "T0000001",
+    "user_profile": {
+      "real_name": "Pat Developer",
+      "display_name": "dev9",
+      "avatar_hash": "8fe400f6",
+      "first_name": "Pat",
+      "image_72": "https://avatars.slack-edge.com/2020-10-26/404_72.jpg",
+      "team": "T0000001"
+    },
+    "blocks": [
+      {
+        "type": "rich_text",
+        "block_id": "pRF",
+        "elements": [
+          {
+            "type": "rich_text_section",
+            "elements": [
+              {
+                "type": "text",
+                "text": "ohhh... keep twisting my arm (just not my hand!)...  maybe??"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "client_msg_id": "cb8010bb-da6c-4b17-ae55-e53948dc98d9",
+    "type": "message",
+    "text": "hahaha we can make a call at 5pm",
+    "user": "WRX8F8000",
+    "ts": "1573587813.005200",
+    "team": "T0000001",
+    "user_team": "T0000001",
+    "source_team": "T0000001",
+    "user_profile": {
+      "real_name": "Pat Developer",
+      "display_name": "dev8",
+      "avatar_hash": "8fe400f6",
+      "first_name": "Pat",
+      "image_72": "https://avatars.slack-edge.com/2020-10-26/404_72.jpg",
+      "team": "T0000001"
+    },
+    "blocks": [
+      {
+        "type": "rich_text",
+        "block_id": "=IYJi",
+        "elements": [
+          {
+            "type": "rich_text_section",
+            "elements": [
+              {
+                "type": "text",
+                "text": "hahaha we can make a call at 5pm"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "client_msg_id": "e658f279-1901-43be-a42c-4dcd184d8c31",
+    "type": "message",
+    "text": ":charmander:",
+    "user": "WRX8FH000",
+    "ts": "1573587829.005400",
+    "team": "T0000001",
+    "user_team": "T0000001",
+    "source_team": "T0000001",
+    "user_profile": {
+      "real_name": "Pat Developer",
+      "display_name": "dev9",
+      "avatar_hash": "8fe400f6",
+      "first_name": "Pat",
+      "image_72": "https://avatars.slack-edge.com/2020-10-26/404_72.jpg",
+      "team": "T0000001"
+    },
+    "blocks": [
+      {
+        "type": "rich_text",
+        "block_id": "e1v",
+        "elements": [
+          {
+            "type": "rich_text_section",
+            "elements": [
+              {
+                "type": "emoji",
+                "name": "charmander"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "client_msg_id": "6c107b69-29f0-45bb-bfe5-bd97fdd68acc",
+    "type": "message",
+    "text": "Any updates on date &amp; place?",
+    "user": "WRX8FH000",
+    "ts": "1572892366.001300",
+    "team": "T0000001",
+    "user_team": "T0000001",
+    "source_team": "T0000001",
+    "user_profile": {
+      "real_name": "Pat Developer",
+      "display_name": "dev9",
+      "avatar_hash": "8fe400f6",
+      "first_name": "Pat",
+      "image_72": "https://avatars.slack-edge.com/2020-10-26/404_72.jpg",
+      "team": "T0000001"
+    },
+    "blocks": [
+      {
+        "type": "rich_text",
+        "block_id": "QFwpH",
+        "elements": [
+          {
+            "type": "rich_text_section",
+            "elements": [
+              {
+                "type": "text",
+                "text": "Any updates on date & place?"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "thread_ts": "1570053294.001100",
+    "parent_user_id": "WRX8F8W6R"
+  },
+  {
+    "client_msg_id": "4326799b-c805-42a4-964d-bf2ad6b35fa1",
+    "type": "message",
+    "text": "I could do Thursday this week if folks want to?",
+    "user": "WRX8F8000",
+    "ts": "1572896312.001500",
+    "team": "T0000001",
+    "user_team": "T0000001",
+    "source_team": "T0000001",
+    "user_profile": {
+      "real_name": "Pat Developer",
+      "display_name": "dev8",
+      "avatar_hash": "8fe400f6",
+      "first_name": "Pat",
+      "image_72": "https://avatars.slack-edge.com/2020-10-26/404_72.jpg",
+      "team": "T0000001"
+    },
+    "blocks": [
+      {
+        "type": "rich_text",
+        "block_id": "amiAw",
+        "elements": [
+          {
+            "type": "rich_text_section",
+            "elements": [
+              {
+                "type": "text",
+                "text": "I could do Thursday this week if folks want to?"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "thread_ts": "1570053294.001100",
+    "parent_user_id": "WRX8F8W6R"
+  },
+  {
+    "client_msg_id": "d0e65f75-e45d-46ec-9875-65fb49d1b27d",
+    "type": "message",
+    "text": "ok - no one said yes AND my car was in a hit and run so i have to go to the shop this afternoon so...no crap tonight!",
+    "user": "WRX8F8000",
+    "ts": "1574185666.007200",
+    "team": "T0000001",
+    "user_team": "T0000001",
+    "source_team": "T0000001",
+    "user_profile": {
+      "real_name": "Pat Developer",
+      "display_name": "dev8",
+      "avatar_hash": "8fe400f6",
+      "first_name": "Pat",
+      "image_72": "https://avatars.slack-edge.com/2020-10-26/404_72.jpg",
+      "team": "T0000001"
+    },
+    "blocks": [
+      {
+        "type": "rich_text",
+        "block_id": "ZXMEl",
+        "elements": [
+          {
+            "type": "rich_text_section",
+            "elements": [
+              {
+                "type": "text",
+                "text": "ok - no one said yes AND my car was in a hit and run so i have to go to the shop this afternoon so...no crap tonight!"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "reactions": [
+      {
+        "name": "ohno",
+        "users": [
+          "WRZE84P2S"
+        ],
+        "count": 1
+      }
+    ]
+  },
+  {
+    "client_msg_id": "ba7d7af6-8d05-460a-a21c-877b3d9c4506",
+    "type": "message",
+    "text": "ok let's do this! I'm thinking 5-6pm. Ideas for where? My current preference is auditorium. Which day(s) of the week is best for those interested?",
+    "user": "WRX8F8000",
+    "ts": "1570053294.001100",
+    "team": "T0000001",
+    "user_team": "T0000001",
+    "source_team": "T0000001",
+    "user_profile": {
+      "real_name": "Pat Developer",
+      "display_name": "dev8",
+      "avatar_hash": "8fe400f6",
+      "first_name": "Pat",
+      "image_72": "https://avatars.slack-edge.com/2020-10-26/404_72.jpg",
+      "team": "T0000001"
+    },
+    "thread_ts": "1570053294.001100",
+    "reply_count": 13,
+    "reply_users_count": 5,
+    "latest_reply": "1572896312.001500",
+    "reply_users": [
+      "WRX8FH8QM",
+      "WRZE84P2S",
+      "WRZ400TMM",
+      "WRZ40LDRD",
+      "WRX8F8W6R"
+    ],
+    "replies": [
+      {
+        "user": "WRX8FH8QM",
+        "ts": "1570060347.001200"
+      },
+      {
+        "user": "WRZE84P2S",
+        "ts": "1570104163.001400"
+      },
+      {
+        "user": "WRZ400TMM",
+        "ts": "1570117361.001600"
+      },
+      {
+        "user": "WRZ40LDRD",
+        "ts": "1570550530.001800"
+      },
+      {
+        "user": "WRX8F8W6R",
+        "ts": "1570553265.002000"
+      },
+      {
+        "user": "WRX8F8W6R",
+        "ts": "1570553278.002200"
+      },
+      {
+        "user": "WRZ40LDRD",
+        "ts": "1570628180.000200"
+      },
+      {
+        "user": "WRX8F8W6R",
+        "ts": "1571233201.000400"
+      },
+      {
+        "user": "WRX8FH8QM",
+        "ts": "1572277352.000600"
+      },
+      {
+        "user": "WRX8F8W6R",
+        "ts": "1572280672.000800"
+      },
+      {
+        "user": "WRX8FH8QM",
+        "ts": "1572280764.001000"
+      },
+      {
+        "user": "WRX8FH8QM",
+        "ts": "1572892366.001300"
+      },
+      {
+        "user": "WRX8F8W6R",
+        "ts": "1572896312.001500"
+      }
+    ],
+    "is_locked": false,
+    "subscribed": false
+  },
+  {
+    "client_msg_id": "d3fd1971-bd6d-4b33-a9da-44c0afa5ba26",
+    "type": "message",
+    "text": "Not Wednesdays",
+    "user": "WRX8FH000",
+    "ts": "1570060347.001200",
+    "team": "T0000001",
+    "user_team": "T0000001",
+    "source_team": "T0000001",
+    "user_profile": {
+      "real_name": "Pat Developer",
+      "display_name": "dev9",
+      "avatar_hash": "8fe400f6",
+      "first_name": "Pat",
+      "image_72": "https://avatars.slack-edge.com/2020-10-26/404_72.jpg",
+      "team": "T0000001"
+    },
+    "thread_ts": "1570053294.001100",
+    "parent_user_id": "WRX8F8W6R"
+  },
+  {
+    "client_msg_id": "d351a024-1336-43a5-b4a1-5dc8b29521f1",
+    "type": "message",
+    "text": "Tuesdays? (I have crap classes Mon and Thurs)",
+    "user": "WRZE84000",
+    "ts": "1570104163.001400",
+    "team": "T0000001",
+    "user_team": "T0000001",
+    "source_team": "T0000001",
+    "user_profile": {
+      "real_name": "Pat Developer",
+      "display_name": "dev4",
+      "avatar_hash": "8fe400f6",
+      "first_name": "Pat",
+      "image_72": "https://avatars.slack-edge.com/2020-10-26/404_72.jpg",
+      "team": "T0000001"
+    },
+    "thread_ts": "1570053294.001100",
+    "parent_user_id": "WRX8F8W6R"
+  },
+  {
+    "client_msg_id": "d0796d1a-06c8-4389-9c00-29098d138be9",
+    "type": "message",
+    "text": "no preference here other than not Wed",
+    "user": "WRZ400000",
+    "ts": "1570117361.001600",
+    "team": "T0000001",
+    "user_team": "T0000001",
+    "source_team": "T0000001",
+    "user_profile": {
+      "real_name": "Pat Developer",
+      "display_name": "dev2",
+      "avatar_hash": "8fe400f6",
+      "first_name": "Pat",
+      "image_72": "https://avatars.slack-edge.com/2020-10-26/404_72.jpg",
+      "team": "T0000001"
+    },
+    "thread_ts": "1570053294.001100",
+    "parent_user_id": "WRX8F8W6R"
+  },
+  {
+    "type": "message",
+    "subtype": "channel_join",
+    "ts": "1605641147.001900",
+    "user": "U01DHLK2000",
+    "text": "<@U01DHLK2Y68> has joined the channel",
+    "client_msg_id": "3be9ba03-1808-4893-9d2a-1cc43bdfbbd2",
+    "team": "T0000001",
+    "source_team": "T0000001",
+    "user_team": "T0000001"
+  },
+  {
+    "client_msg_id": "d4d6a7a7-0b65-4c5f-a80e-f06bcfb45311",
+    "type": "message",
+    "text": "anyone want crap tomorrow (prob 5:15 start)",
+    "user": "WRX8F8000",
+    "ts": "1574096253.006400",
+    "team": "T0000001",
+    "user_team": "T0000001",
+    "source_team": "T0000001",
+    "user_profile": {
+      "real_name": "Pat Developer",
+      "display_name": "dev8",
+      "avatar_hash": "8fe400f6",
+      "first_name": "Pat",
+      "image_72": "https://avatars.slack-edge.com/2020-10-26/404_72.jpg",
+      "team": "T0000001"
+    },
+    "blocks": [
+      {
+        "type": "rich_text",
+        "block_id": "1/W",
+        "elements": [
+          {
+            "type": "rich_text_section",
+            "elements": [
+              {
+                "type": "text",
+                "text": "anyone want crap tomorrow (prob 5:15 start)"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "client_msg_id": "57401d7b-3880-4d1e-b704-b7264a45e48f",
+    "type": "message",
+    "text": "Sorry, not this week :disappointed:",
+    "user": "WRX8FH000",
+    "ts": "1574120875.006700",
+    "team": "T0000001",
+    "user_team": "T0000001",
+    "source_team": "T0000001",
+    "user_profile": {
+      "real_name": "Pat Developer",
+      "display_name": "dev9",
+      "avatar_hash": "8fe400f6",
+      "first_name": "Pat",
+      "image_72": "https://avatars.slack-edge.com/2020-10-26/404_72.jpg",
+      "team": "T0000001"
+    }
+  }
+]
