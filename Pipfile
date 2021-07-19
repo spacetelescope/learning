@@ -11,6 +11,9 @@ spacy = "*"
 ipython = "*"
 click = "*"
 nose = "*"
+elasticsearch = ">=7.0.0,<8.0.0"
+flask = "*"
+elasticsearch-dsl = "*"
 
 [dev-packages]
 
