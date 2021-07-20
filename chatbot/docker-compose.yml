@@ -1,0 +1,43 @@
+version: '3.8'
+
+volumes:
+  data-es:
+  data-chatbot:
+
+
+services:
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.13.3
+    environment:
+      - node.name=elasticsearch
+      - cluster.name=es-docker-cluster
+      - cluster.initial_master_nodes=elasticsearch
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - data-es:/usr/share/elasticsearch/data
+    ports:
+      - 9200:9200
+
+  chatbot-server:
+    build: .
+    environment:
+      - ES_HOSTS=elasticsearch
+    ports:
+      - 5000:5000
+
+  blenderbot:
+    # command: sleep 3600
+    build: blenderbot
+    stdin_open: true
+    tty: true
+    depends_on:
+      - chatbot-server
+    volumes:
+      - data-chatbot:/opt/ParlAI/data
+    ports:
+      - 8080:8080

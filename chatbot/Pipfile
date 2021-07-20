@@ -4,14 +4,11 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-convokit = "*"
-nltk = "*"
+flask = "*"
+elasticsearch = "*"
+elasticsearch-dsl = "*"
 ipdb = "*"
-spacy = "*"
 ipython = "*"
-click = "*"
-nose = "*"
-
 
 [dev-packages]
 
