@@ -29,7 +29,9 @@ services:
       - ES_HOSTS=elasticsearch
     ports:
       - 5000:5000
-
+    depends_on:
+      - elasticsearch
+      
   blenderbot:
     # command: sleep 3600
     build: blenderbot
