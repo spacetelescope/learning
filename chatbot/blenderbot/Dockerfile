@@ -15,4 +15,4 @@ RUN pip install -r requirements.txt
 
 RUN python3 setup.py develop
 
-CMD ["parlai", "interactive_web", "--task", "blended_skill_talk:all", "-mf", "zoo:blenderbot2/blenderbot2_400M/model", "--search-server", "http://chatbot-server:5000"]
+CMD ["parlai", "interactive_web", "--host", "0.0.0.0", "--task", "blended_skill_talk:all", "-mf", "zoo:blenderbot2/blenderbot2_400M/model", "--search-server", "http://chatbot-server:5000"]
