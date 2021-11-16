@@ -3,7 +3,7 @@ FROM python:3.8
 RUN apt update
 RUN apt install -y libblas-dev liblapack-dev gfortran
 
-RUN git clone https://github.com/facebookresearch/ParlAI.git /opt/ParlAI
+RUN git clone --branch=loading https://github.com/spacetelescope/ParlAI.git /opt/ParlAI
 
 WORKDIR /opt/ParlAI
 
