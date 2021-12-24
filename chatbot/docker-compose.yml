@@ -2,7 +2,6 @@ version: '3.8'
 
 volumes:
   data-es:
-  data-chatbot:
 
 
 services:
@@ -31,15 +30,20 @@ services:
       - 5000:5000
     depends_on:
       - elasticsearch
-      
+
   blenderbot:
-    # command: sleep 3600
+    # command: python parlai/scripts/interactive_web.py --task blended_skill_talk  --host 0.0.0.0 -mf zoo:sea/bart_fid_sqse/model --search-server http://chatbot-server:5000/search
     build: blenderbot
+    environment:
+      - SCRIPT=scripts/interactive_web.py
+      - TASK=blended_skill_talk
+      - MODEL=zoo:blenderbot2/blenderbot2_400M/model
     stdin_open: true
     tty: true
     depends_on:
       - chatbot-server
     volumes:
-      - data-chatbot:/opt/ParlAI/data
+      - ./data:/opt/ParlAI/data:rw
+      - ./scripts:/opt/ParlAI/scripts:ro
     ports:
       - 8080:8080

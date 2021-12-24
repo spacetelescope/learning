@@ -16,4 +16,4 @@ RUN pip install -r requirements.txt
 
 RUN python3 setup.py develop
 
-CMD python parlai/scripts/interactive_web.py --host 0.0.0.0 --task $TASK -mf $MODEL --search-server http://chatbot-server:5000/search
+CMD python $SCRIPT --host 0.0.0.0 --task $TASK -mf $MODEL --search-server http://chatbot-server:5000/search
