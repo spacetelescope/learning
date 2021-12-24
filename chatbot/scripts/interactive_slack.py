@@ -19,6 +19,7 @@ from parlai.core.agents import create_agent
 from parlai.core.worlds import create_task
 from parlai.core.script import ParlaiScript, register_script
 import parlai.utils.logging as logging
+from parlai.agents.local_human.local_human import LocalHumanAgent
 
 try:
     from slack import RTMClient
@@ -50,7 +51,7 @@ async def rtm_handler(rtm_client, web_client, data, **kwargs):
     Handles new chat messages from Slack.
     Does the following to let the user know immediately that the agent is working since it takes a while
         Adds the :eyes: reaction to let the user
-        Sets the status of the bot to typing 
+        Sets the status of the bot to typing
     Runs the agent on the given text
     Returns the model_response text to the channel where the message came from.
     Removes the :eyes: reaction
@@ -81,13 +82,13 @@ def interactive_slack(opt):
         raise RuntimeError(
             'A Slack bot token must be specified. Must be a legacy bot app token for RTM messaging'
         )
-    opt['task'] = 'parlai.agents.local_human.local_human:LocalHumanAgent'
+    human_agent = LocalHumanAgent(opt)
     agent = create_agent(opt, requireModelExists=True)
     agent.opt.log()
     agent.opt['verbose'] = True
     SHARED['opt'] = agent.opt
     SHARED['agent'] = agent
-    SHARED['world'] = create_task(SHARED.get('opt'), SHARED['agent'])
+    SHARED['world'] = create_task(SHARED.get('opt'), [human_agent, SHARED['agent']])
     SHARED['client'] = client = RTMClient(token=opt['token'])
     logging.info('Slack client is starting')
     client.start()

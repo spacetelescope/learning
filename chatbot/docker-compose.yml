@@ -34,10 +34,12 @@ services:
   blenderbot:
     # command: python parlai/scripts/interactive_web.py --task blended_skill_talk  --host 0.0.0.0 -mf zoo:sea/bart_fid_sqse/model --search-server http://chatbot-server:5000/search
     build: blenderbot
-    environment:
-      - SCRIPT=scripts/interactive_web.py
-      - TASK=blended_skill_talk
-      - MODEL=zoo:blenderbot2/blenderbot2_400M/model
+    # environment:
+    #   - SCRIPT=scripts/interactive_web.py
+    #   - TASK=blended_skill_talk
+    #   - MODEL=zoo:blenderbot2/blenderbot2_400M/model
+    env_file:
+      - .env
     stdin_open: true
     tty: true
     depends_on:
