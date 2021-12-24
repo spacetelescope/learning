@@ -21,6 +21,7 @@ from parlai.core.worlds import create_task
 from typing import Dict, Any
 from parlai.core.script import ParlaiScript, register_script
 import parlai.utils.logging as logging
+from parlai.agents.local_human.local_human import LocalHumanAgent
 
 import json
 import time
@@ -29,12 +30,12 @@ HOST_NAME = 'localhost'
 PORT = 8080
 
 SHARED: Dict[Any, Any] = {}
-STYLE_SHEET = "https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.4/css/bulma.css"
-FONT_AWESOME = "https://use.fontawesome.com/releases/v5.3.1/js/all.js"
+STYLE_SHEET = ""
+FONT_AWESOME = ""
 WEB_HTML = """
 <html>
-    <link rel="stylesheet" href={} />
-    <script defer src={}></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.4/css/bulma.css" />
+    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
     <head><title> Interactive Run </title></head>
     <body>
         <div class="columns" style="height: 100%">
@@ -77,9 +78,12 @@ WEB_HTML = """
         </div>
 
         <script>
-            function createChatRow(agent, text) {{
+            function createChatRow(agent, text, id) {
                 var article = document.createElement("article");
                 article.className = "media"
+                if (article !== null) {
+                    article.id = id;
+                }
 
                 var figure = document.createElement("figure");
                 figure.className = "media-left";
@@ -112,26 +116,29 @@ WEB_HTML = """
                 span.appendChild(icon);
                 figure.appendChild(span);
 
-                if (agent !== "Instructions") {{
+                if (agent !== "Instructions") {
                     article.appendChild(figure);
-                }};
+                };
 
                 article.appendChild(media);
 
                 return article;
-            }}
-            document.getElementById("interact").addEventListener("submit", function(event){{
+            }
+            document.getElementById("interact").addEventListener("submit", function(event){
                 event.preventDefault()
                 var text = document.getElementById("userIn").value;
                 document.getElementById('userIn').value = "";
 
-                fetch('/interact', {{
-                    headers: {{
+                var parDiv = document.getElementById("parent");
+                parDiv.append(createChatRow("", 'Loading...', 'fetch'));
+                fetch('/interact', {
+                    headers: {
                         'Content-Type': 'application/json'
-                    }},
+                    },
                     method: 'POST',
                     body: text
-                }}).then(response=>response.json()).then(data=>{{
+                }).then(response=>response.json()).then(data=>{
+                    document.getElementById("fetch").remove();
                     var parDiv = document.getElementById("parent");
 
                     parDiv.append(createChatRow("You", text));
@@ -139,26 +146,26 @@ WEB_HTML = """
                     // Change info for Model response
                     parDiv.append(createChatRow("Model", data.text));
                     parDiv.scrollTo(0, parDiv.scrollHeight);
-                }})
-            }});
-            document.getElementById("interact").addEventListener("reset", function(event){{
+                })
+            });
+            document.getElementById("interact").addEventListener("reset", function(event){
                 event.preventDefault()
                 var text = document.getElementById("userIn").value;
                 document.getElementById('userIn').value = "";
 
-                fetch('/reset', {{
-                    headers: {{
+                fetch('/reset', {
+                    headers: {
                         'Content-Type': 'application/json'
-                    }},
+                    },
                     method: 'POST',
-                }}).then(response=>response.json()).then(data=>{{
+                }).then(response=>response.json()).then(data=>{
                     var parDiv = document.getElementById("parent");
 
                     parDiv.innerHTML = '';
                     parDiv.append(createChatRow("Instructions", "Enter a message, and the model will respond interactively."));
                     parDiv.scrollTo(0, parDiv.scrollHeight);
-                }})
-            }});
+                })
+            });
         </script>
 
     </body>
@@ -226,7 +233,7 @@ class MyHandler(BaseHTTPRequestHandler):
         self.send_response(status_code)
         self.send_header('Content-type', 'text/html')
         self.end_headers()
-        content = WEB_HTML.format(STYLE_SHEET, FONT_AWESOME)
+        content = WEB_HTML  # % (STYLE_SHEET, FONT_AWESOME)
         return bytes(content, 'UTF-8')
 
     def _respond(self, opts):
@@ -240,7 +247,8 @@ def setup_interweb_args(shared):
     """
     parser = setup_args()
     parser.description = 'Interactive chat with a model in a web browser'
-    parser.add_argument('--port', type=int, default=PORT, help='Port to listen on.')
+    parser.add_argument('--port', type=int, default=PORT,
+                        help='Port to listen on.')
     parser.add_argument(
         '--host',
         default=HOST_NAME,
@@ -266,14 +274,15 @@ def wait():
 def interactive_web(opt):
     global SHARED
 
-    opt['task'] = 'parlai.agents.local_human.local_human:LocalHumanAgent'
+    human_agent = LocalHumanAgent(opt)
 
     # Create model and assign it to the specified task
     agent = create_agent(opt, requireModelExists=True)
     agent.opt.log()
     SHARED['opt'] = agent.opt
     SHARED['agent'] = agent
-    SHARED['world'] = create_task(SHARED.get('opt'), SHARED['agent'])
+    SHARED['world'] = create_task(SHARED.get(
+        'opt'), [human_agent, SHARED['agent']])
 
     MyHandler.protocol_version = 'HTTP/1.0'
     httpd = HTTPServer((opt['host'], opt['port']), MyHandler)
